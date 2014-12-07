@@ -296,14 +296,11 @@ class Infopanel(Screen, InfoBarPiP):
 		self["label1"] = Label(INFO_Panel_Version)
 
 		self.Mlist = []
-		self.Mlist.append(MenuEntryItem((InfoEntryComponent('Red-Key-Action'), _("Red Panel"), 'Red-Key-Action')))
-		self.Mlist.append(MenuEntryItem((InfoEntryComponent('Blue-Key-Action'), _("Blue Panel"), 'Blue-Key-Action')))		
-		self.Mlist.append(MenuEntryItem((InfoEntryComponent('Multi-Key-Action'), _("Multi Panel"), 'Multi-Key-Action')))		
 		self.Mlist.append(MenuEntryItem((InfoEntryComponent('SoftcamPanel'), _("SoftcamPanel"), 'SoftcamPanel')))
 		self.Mlist.append(MenuEntryItem((InfoEntryComponent ("QuickMenu" ), _("Quick-Menu"), ("QuickMenu"))))
+		self.Mlist.append(MenuEntryItem((InfoEntryComponent('Button-Action'), _("Buttons-Remapping"), 'Button-Action')))		
 		self.Mlist.append(MenuEntryItem((InfoEntryComponent ("LogManager" ), _("Log-Manager"), ("LogManager"))))
 		self.Mlist.append(MenuEntryItem((InfoEntryComponent ("SoftwareManager" ), _("Software-Manager"), ("software-manager"))))
-		self.Mlist.append(MenuEntryItem((InfoEntryComponent('KeymapSel'), _("Keymap-Selection"), 'KeymapSel')))	
 		self.Mlist.append(MenuEntryItem((InfoEntryComponent('Plugins'), _("Plugins"), 'Plugins')))
 		self.Mlist.append(MenuEntryItem((InfoEntryComponent('Infos'), _("Infos"), 'Infos')))
 		self.Mlist.append(MenuEntryItem((InfoEntryComponent('PluginInstallwizard'), _("PluginInstallwizard"), 'PluginInstallwizard')))
@@ -462,6 +459,8 @@ class Infopanel(Screen, InfoBarPiP):
 			self.session.open(SwapOverviewScreen)
 		elif menu == "Red-Key-Action":
 			self.session.open(RedPanel)
+		elif menu == "Button-Action":
+			self.ButtonSection()				
 		elif menu == "Blue-Key-Action":
 			self.session.open(BluePanel)			
 		elif menu == "Multi-Key-Action":
@@ -478,6 +477,23 @@ class Infopanel(Screen, InfoBarPiP):
 			self.session.open(PluginDeinstall)			
 		else:
 			pass
+
+
+	def ButtonSection(self):
+		#// Create Plugin Menu
+		global menu
+		menu = 1
+		self["label1"].setText(_("Buttons-Remapping"))
+		self.tlist = []
+		self.oldmlist = []
+		self.oldmlist = self.Mlist
+		self.tlist.append(MenuEntryItem((InfoEntryComponent('Red-Key-Action'), _("Red Panel"), 'Red-Key-Action')))
+		self.tlist.append(MenuEntryItem((InfoEntryComponent('Blue-Key-Action'), _("Blue Panel"), 'Blue-Key-Action')))		
+		self.tlist.append(MenuEntryItem((InfoEntryComponent('Multi-Key-Action'), _("Multi Panel"), 'Multi-Key-Action')))
+		self.tlist.append(MenuEntryItem((InfoEntryComponent('KeymapSel'), _("Keymap-Selection"), 'KeymapSel')))	
+		self["Mlist"].moveToIndex(0)
+		self["Mlist"].l.setList(self.tlist)
+
 
 	def Plugins(self):
 		#// Create Plugin Menu
@@ -1115,4 +1131,3 @@ class Info(Screen):
 		except:
 			o = ''
 			return o
-
